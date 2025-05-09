@@ -12,9 +12,14 @@ declare global {
 
 const LocationSection = () => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (!isMapLoaded) return;
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMapLoaded || !isClient) return;
 
     const map = new window.naver.maps.Map("naverMap", {
       center: new window.naver.maps.LatLng(
@@ -31,7 +36,7 @@ const LocationSection = () => {
       ),
       map: map,
     });
-  }, [isMapLoaded]);
+  }, [isMapLoaded, isClient]);
 
   return (
     <>
