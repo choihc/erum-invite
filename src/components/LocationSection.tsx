@@ -12,31 +12,32 @@ declare global {
 
 const LocationSection = () => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    if (!isMapLoaded) return;
 
-  useEffect(() => {
-    if (!isMapLoaded || !isClient) return;
+    const initializeMap = () => {
+      if (typeof window === "undefined" || !window.naver) return;
 
-    const map = new window.naver.maps.Map("naverMap", {
-      center: new window.naver.maps.LatLng(
-        37.3102329915188,
-        127.08280997237311
-      ),
-      zoom: 16,
-    });
+      const map = new window.naver.maps.Map("naverMap", {
+        center: new window.naver.maps.LatLng(
+          37.3102329915188,
+          127.08280997237311
+        ),
+        zoom: 16,
+      });
 
-    new window.naver.maps.Marker({
-      position: new window.naver.maps.LatLng(
-        37.3102329915188,
-        127.08280997237311
-      ),
-      map: map,
-    });
-  }, [isMapLoaded, isClient]);
+      new window.naver.maps.Marker({
+        position: new window.naver.maps.LatLng(
+          37.3102329915188,
+          127.08280997237311
+        ),
+        map: map,
+      });
+    };
+
+    initializeMap();
+  }, [isMapLoaded]);
 
   return (
     <>
