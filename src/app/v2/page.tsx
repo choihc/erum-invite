@@ -1,9 +1,11 @@
 "use client";
 
-import IntroSectionV2 from "@/components/IntroSectionV2";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
+const IntroSectionV2 = dynamic(() => import("@/components/IntroSectionV2"), {
+  ssr: false,
+});
 const LocationSection = dynamic(() => import("@/components/LocationSection"), {
   ssr: false,
 });
