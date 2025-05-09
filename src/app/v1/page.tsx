@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const IntroSection = dynamic(() => import("@/components/IntroSection"), {
   ssr: false,
@@ -21,6 +22,15 @@ export default function Home() {
       <IntroSection />
       <LocationSection />
       <RegistrationSection />
+      <div className="w-full flex justify-center pb-32">
+        <Image
+          src="/images/invite.jpeg"
+          alt="초대장"
+          width={300}
+          height={400}
+          className="rounded-lg shadow-lg"
+        />
+      </div>
     </main>
   );
 }
