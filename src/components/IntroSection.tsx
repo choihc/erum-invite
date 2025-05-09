@@ -3,7 +3,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Lottie from "lottie-react";
 import { useRef } from "react";
-import animationData from "../../public/lotti/Animation - 1746754003585.json";
+import animationData from "../../public/lotti/heart.json";
+import ScrollIndicator from "./ScrollIndicator";
 
 const IntroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -32,7 +33,7 @@ const IntroSection = () => {
   return (
     <section ref={sectionRef} className="h-[600vh] relative">
       <div className="sticky top-0 h-screen flex items-center justify-center bg-white overflow-hidden">
-        <div className="absolute inset-0 w-full h-full opacity-10 pointer-events-none">
+        <div className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
           <Lottie
             animationData={animationData}
             loop={true}
@@ -87,46 +88,11 @@ const IntroSection = () => {
             <h1 className="text-gray-900">
               미리 등록하면
               <br />
-              선물도 준데! 🤫
+              선물도 준대! 🤫
             </h1>
           </motion.div>
 
-          {/* 스크롤 표시기 */}
-          <motion.div
-            style={{ opacity: scrollIndicatorOpacity }}
-            className="fixed bottom-4 left-0 right-0 mx-auto flex flex-col items-center gap-2 z-50"
-          >
-            <motion.div
-              className="text-gray-600 text-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
-            >
-              아래로 스크롤해주세요
-            </motion.div>
-            <motion.div
-              animate={{
-                y: [0, 10, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            >
-              <svg
-                className="w-6 h-6 text-gray-600"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-              </svg>
-            </motion.div>
-          </motion.div>
+          <ScrollIndicator opacity={scrollIndicatorOpacity} />
         </div>
       </div>
     </section>

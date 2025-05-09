@@ -82,7 +82,7 @@ const LocationSection = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-center mb-16">여기로 찾아오라구! 😘</h2>
+          <h2 className="text-center mb-16">이룸교회 위치! 😘</h2>
 
           <div className="bg-white rounded-2xl shadow-sm overflow-hidden mb-8">
             <div className="aspect-h-9">

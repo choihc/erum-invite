@@ -17,7 +17,7 @@ const RegistrationSection = () => {
           <br />
           사전 등록하고
           <br />
-          선물도 받아가! 🎁
+          선물도 받아가기! 🎁
         </h2>
 
         <motion.a
