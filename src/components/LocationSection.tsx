@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Script from "next/script";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
@@ -12,40 +12,67 @@ declare global {
 
 const LocationSection = () => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const mapRef = useRef<any>(null);
 
   useEffect(() => {
     if (!isMapLoaded) return;
 
     const initializeMap = () => {
-      if (typeof window === "undefined" || !window.naver) return;
+      try {
+        if (
+          typeof window === "undefined" ||
+          !window.naver ||
+          !window.naver.maps
+        ) {
+          console.log("Naver Maps not loaded yet");
+          return;
+        }
 
-      const map = new window.naver.maps.Map("naverMap", {
-        center: new window.naver.maps.LatLng(
-          37.3102329915188,
-          127.08280997237311
-        ),
-        zoom: 16,
-      });
+        if (mapRef.current) {
+          console.log("Map already initialized");
+          return;
+        }
 
-      new window.naver.maps.Marker({
-        position: new window.naver.maps.LatLng(
-          37.3102329915188,
-          127.08280997237311
-        ),
-        map: map,
-      });
+        const map = new window.naver.maps.Map("naverMap", {
+          center: new window.naver.maps.LatLng(
+            37.3102329915188,
+            127.08280997237311
+          ),
+          zoom: 16,
+        });
+
+        new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(
+            37.3102329915188,
+            127.08280997237311
+          ),
+          map: map,
+        });
+
+        mapRef.current = map;
+      } catch (error) {
+        console.error("Error initializing map:", error);
+      }
     };
 
-    initializeMap();
+    // 약간의 지연을 주어 DOM이 완전히 준비된 후 지도를 초기화
+    const timer = setTimeout(initializeMap, 100);
+    return () => clearTimeout(timer);
   }, [isMapLoaded]);
 
   return (
     <>
       <Script
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         type="text/javascript"
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=jbgn2o8h0j`}
-        onLoad={() => setIsMapLoaded(true)}
+        onLoad={() => {
+          console.log("Naver Maps script loaded");
+          setIsMapLoaded(true);
+        }}
+        onError={(e) => {
+          console.error("Error loading Naver Maps script:", e);
+        }}
       />
       <section className="min-h-screen py-32 px-4 bg-gray-50">
         <motion.div
