@@ -15,23 +15,23 @@ const ShareButtons = () => {
   const shareTitle = "이룸교회 중등부 오이코스 초청예배";
 
   useEffect(() => {
-    const initializeKakao = () => {
-      if (typeof window !== "undefined" && window.Kakao) {
-        if (!window.Kakao.isInitialized()) {
-          window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
-          console.log("Kakao SDK initialized");
-        }
+    const checkKakaoInitialized = () => {
+      if (
+        typeof window !== "undefined" &&
+        window.Kakao &&
+        window.Kakao.isInitialized()
+      ) {
         setIsKakaoInitialized(true);
       }
     };
 
-    // SDK가 로드되면 초기화
-    if (document.readyState === "complete") {
-      initializeKakao();
-    } else {
-      window.addEventListener("load", initializeKakao);
-      return () => window.removeEventListener("load", initializeKakao);
-    }
+    // 초기 체크
+    checkKakaoInitialized();
+
+    // 주기적으로 체크
+    const interval = setInterval(checkKakaoInitialized, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const shareToInstagram = () => {
