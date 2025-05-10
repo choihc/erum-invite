@@ -16,8 +16,11 @@ const ShareButtons = () => {
 
   useEffect(() => {
     const initializeKakao = () => {
-      if (window.Kakao && !window.Kakao.isInitialized()) {
-        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
+      if (typeof window !== "undefined" && window.Kakao) {
+        if (!window.Kakao.isInitialized()) {
+          window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_APP_KEY);
+          console.log("Kakao SDK initialized");
+        }
         setIsKakaoInitialized(true);
       }
     };
@@ -38,8 +41,13 @@ const ShareButtons = () => {
   };
 
   const shareToKakao = () => {
-    if (window.Kakao && window.Kakao.Link && isKakaoInitialized) {
-      window.Kakao.Link.sendDefault({
+    if (
+      typeof window !== "undefined" &&
+      window.Kakao &&
+      window.Kakao.Share &&
+      isKakaoInitialized
+    ) {
+      window.Kakao.Share.sendDefault({
         objectType: "feed",
         content: {
           title: shareTitle,
