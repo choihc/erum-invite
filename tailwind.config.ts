@@ -11,6 +11,19 @@ const config: Config = {
       fontFamily: {
         sans: ["NanumGoding", "sans-serif"],
       },
+      keyframes: {
+        "heart-pulse": {
+          "0%, 100%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.2)",
+          },
+        },
+      },
+      animation: {
+        "heart-pulse": "heart-pulse 0.3s ease-in-out infinite",
+      },
     },
   },
   plugins: [],
