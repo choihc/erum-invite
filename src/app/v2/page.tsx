@@ -1,5 +1,6 @@
 "use client";
 
+import ShareButtons from "@/components/ShareButtons";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <IntroSectionV2 />
       <LocationSection />
       <RegistrationSection />
+      <ShareButtons />
       <div className="w-full flex justify-center py-16 pb-32">
         <Image
           src="/images/invite.jpeg"

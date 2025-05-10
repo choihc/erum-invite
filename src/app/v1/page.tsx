@@ -1,5 +1,6 @@
 "use client";
 
+import ShareButtons from "@/components/ShareButtons";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <IntroSection />
       <LocationSection />
       <RegistrationSection />
+      <ShareButtons />
       <div className="w-full flex justify-center pb-32">
         <Image
           src="/images/invite.jpeg"
